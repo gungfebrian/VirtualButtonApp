@@ -5,8 +5,20 @@
 #include <BLE2902.h>
 
 // ---------- Konfigurasi pin ----------
+// ESP32-C3 tidak memiliki GPIO 25/26. Pada board C3 yang terhubung, GPIO 8
+// dipakai untuk LED bawaan dan GPIO 9 untuk tombol BOOT (keduanya active-low).
+// ESP32 klasik tetap memakai wiring asli dari proyek.
+#if CONFIG_IDF_TARGET_ESP32C3
+static const uint8_t PIN_LED    = 8;
+static const uint8_t PIN_BUTTON = 9;
+static const uint8_t LED_ON     = LOW;
+static const uint8_t LED_OFF    = HIGH;
+#else
 static const uint8_t PIN_LED    = 26;
 static const uint8_t PIN_BUTTON = 25;
+static const uint8_t LED_ON     = HIGH;
+static const uint8_t LED_OFF    = LOW;
+#endif
 
 // ---------- Konfigurasi BLE ----------
 #define DEVICE_NAME         "IOT101-8"
@@ -27,7 +39,7 @@ unsigned long lastDebounceAt = 0;
 // Tulis state ke LED + kirim notify ke app (kalau ada yang connect)
 void applyLedState(bool on, const char *source) {
   ledState = on;
-  digitalWrite(PIN_LED, ledState ? HIGH : LOW);
+  digitalWrite(PIN_LED, ledState ? LED_ON : LED_OFF);
 
   if (ledChar != nullptr) {
     uint8_t value = ledState ? 1 : 0;
@@ -162,7 +174,7 @@ void setup() {
   delay(200);
 
   pinMode(PIN_LED, OUTPUT);
-  digitalWrite(PIN_LED, LOW);
+  digitalWrite(PIN_LED, LED_OFF);
   pinMode(PIN_BUTTON, INPUT_PULLUP);
 
   lastRawButton = digitalRead(PIN_BUTTON);
