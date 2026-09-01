@@ -110,11 +110,28 @@ void setupBLE() {
 
   service->start();
 
+  // Payload advertising diisi manual, bukan lewat addServiceUUID().
+  //
+  // Alasannya: satu paket BLE cuma muat 31 byte, dan service UUID 128-bit udah
+  // makan 18. Kalau pakai jalur default, BLEAdvertising::start() nyalin seluruh
+  // isi paket advertising (termasuk UUID 18 byte itu) ke scan response, lalu
+  // nambahin nama + TX power di sana -- totalnya lewat 31 byte, jadi namanya
+  // kepotong atau ilang. Padahal nama itu yang dibaca iOS lewat
+  // CBAdvertisementDataLocalNameKey dan ditampilin di device picker.
+  //
+  // Jadi dipisah: UUID di paket advertising (dipakai iOS buat filter scan),
+  // nama sendirian di scan response (muat sampai 29 karakter).
   BLEAdvertising *advertising = BLEDevice::getAdvertising();
-  advertising->addServiceUUID(SERVICE_UUID);
-  advertising->setScanResponse(true);
-  advertising->setMinPreferred(0x06);  // workaround masalah koneksi di iPhone
-  advertising->setMinPreferred(0x12);
+
+  BLEAdvertisementData advData;
+  advData.setFlags(ESP_BLE_ADV_FLAG_GEN_DISC | ESP_BLE_ADV_FLAG_BREDR_NOT_SPT);
+  advData.setCompleteServices(BLEUUID(SERVICE_UUID));   // 3 + 18 = 21 byte
+  advertising->setAdvertisementData(advData);
+
+  BLEAdvertisementData scanResponse;
+  scanResponse.setName(DEVICE_NAME);                    // 2 + panjang nama
+  advertising->setScanResponseData(scanResponse);
+
   BLEDevice::startAdvertising();
 
   Serial.println("[BLE] Advertising sebagai \"" DEVICE_NAME "\"");

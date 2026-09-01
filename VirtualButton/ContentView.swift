@@ -2,16 +2,23 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var ble = BLEManager()
+    @State private var showingPicker = false
 
     var body: some View {
         VStack(spacing: 14) {
             powerButton(turnOn: true)
             powerButton(turnOn: false)
-            statusBar
+            connectionBar
         }
         .padding(16)
+        .sheet(isPresented: $showingPicker) {
+            DevicePickerView(ble: ble)
+        }
     }
 
+    // Each button fills half of the available height.
+    // The one matching the current LED state stays fully saturated;
+    // the other dims, so the LED state is readable at a glance.
     private func powerButton(turnOn: Bool) -> some View {
         let isActive = (ble.isLedOn == turnOn)
         let tint: Color = turnOn ? .green : .red
@@ -41,19 +48,31 @@ struct ContentView: View {
         .animation(.easeInOut(duration: 0.18), value: ble.isLedOn)
     }
 
-    private var statusBar: some View {
-        HStack(spacing: 8) {
-            Circle()
-                .fill(ble.isConnected ? Color.green : Color.orange)
-                .frame(width: 10, height: 10)
-            Text(ble.state.label)
-                .font(.footnote)
-                .foregroundStyle(.secondary)
+    /// Tapping the status line opens the device picker.
+    private var connectionBar: some View {
+        Button {
+            if !ble.isConnected { ble.startScan() }
+            showingPicker = true
+        } label: {
+            HStack(spacing: 8) {
+                Circle()
+                    .fill(ble.isConnected ? Color.green : Color.orange)
+                    .frame(width: 10, height: 10)
+                Text(ble.connectedName ?? ble.state.label)
+                    .font(.footnote)
+                Image(systemName: "chevron.up")
+                    .font(.caption2)
+            }
+            .foregroundStyle(.secondary)
+            .frame(maxWidth: .infinity)
+            .frame(height: 34)
+            .contentShape(Rectangle())
         }
-        .frame(height: 20)
+        .buttonStyle(.plain)
     }
 }
 
+/// Gives the big buttons a tactile press response.
 private struct PressableButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
