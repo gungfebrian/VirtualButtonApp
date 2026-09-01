@@ -90,16 +90,20 @@ required.
 ## ESP32-C3 wiring
 
 The diagrams above must not be copied pin-for-pin to an ESP32-C3 because that
-board does not have GPIO 25. The firmware automatically uses the common onboard
-controls instead:
+board does not have GPIO 25. For an ESP32-C3, keep the external LED on GPIO 4
+and connect the physical button between GPIO 3 and GND. The firmware selects
+the correct button pin automatically when the ESP32-C3 board target is selected
+in Arduino IDE.
 
 | Target | LED | Physical button | LED polarity |
 | --- | ---: | ---: | --- |
-| ESP32-C3 | GPIO 8 | GPIO 9 / BOOT | Active-low |
+| ESP32-C3 | GPIO 4 | GPIO 3 | Active-high |
 | ESP32-WROOM | GPIO 4 | GPIO 25 | Active-high |
 
 The mappings live in `esp32_ble_led/board_config.h` and are checked by an
-automated test.
+automated test. Both boards use an external LED with a 330 Ω resistor and an
+external button connected to GND. GPIO 3 is not used for the button on the
+classic ESP32 because it is also the serial RX pin.
 
 ## Upload the ESP32 firmware
 

@@ -17,9 +17,9 @@ clang++ -std=c++17 \
 
 clang++ -std=c++17 \
   -DCONFIG_IDF_TARGET_ESP32C3=1 \
-  -DEXPECTED_LED_PIN=8 \
-  -DEXPECTED_BUTTON_PIN=9 \
-  -DEXPECTED_LED_ON_LEVEL=0 \
+  -DEXPECTED_LED_PIN=4 \
+  -DEXPECTED_BUTTON_PIN=3 \
+  -DEXPECTED_LED_ON_LEVEL=1 \
   "$source_file" \
   -o "$build_dir/esp32-c3-test"
 
