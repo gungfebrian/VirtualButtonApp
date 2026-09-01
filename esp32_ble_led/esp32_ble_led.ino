@@ -10,7 +10,7 @@
 // firmware memakai sumber konfigurasi yang sama.
 
 // ---------- Konfigurasi BLE ----------
-#define DEVICE_NAME         "IOT101-8"
+#define DEVICE_NAME         "IOT101-3"
 #define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
 #define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
 
