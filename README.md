@@ -20,6 +20,12 @@ By completing this project, students learn how to:
 - keep the physical button and iPhone interface synchronized; and
 - deploy the same BLE protocol to several uniquely named ESP32 boards.
 
+## Guided lessons
+
+The [eight-part classroom course](docs/lessons/README.md) turns the project
+into a sequence of short, hands-on lessons. Each lesson connects a hardware or
+Bluetooth concept to the exact firmware and Swift code used in this repository.
+
 ## How it works
 
 The ESP32 is a BLE peripheral and the iPhone is the BLE central. Both the
