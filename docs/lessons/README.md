@@ -15,6 +15,13 @@ same working circuit and application.
 | 5 | [Mechanical bounce and debouncing](05-debouncing.md) | Turn noisy transitions into one press |
 | 6 | [Notifications and synchronized state](06-notifications.md) | Keep hardware and app displays consistent |
 | 7 | [Identity in a multi-board classroom](07-multiple-boards.md) | Distinguish devices that share a protocol |
+| 8 | [Capstone investigation](08-capstone.md) | Test, explain, and extend the complete system |
+
+## Suggested pacing
+
+Units 1–4 work well as guided demonstrations. Units 5–7 ask students to trace
+state across hardware and software. Unit 8 is an assessment that can be
+completed individually or in pairs.
 
 ## Before class
 
