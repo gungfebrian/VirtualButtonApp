@@ -9,6 +9,7 @@ same working circuit and application.
 | Unit | Topic | Practical outcome |
 | ---: | --- | --- |
 | 1 | [GPIO output and the LED](01-gpio-output.md) | Wire and control an LED safely |
+| 2 | [BLE services and characteristics](02-ble-service.md) | Read the project's BLE contract |
 
 ## Before class
 
