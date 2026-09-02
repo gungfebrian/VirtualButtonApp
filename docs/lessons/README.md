@@ -14,6 +14,7 @@ same working circuit and application.
 | 4 | [Digital input and the push button](04-digital-input.md) | Read an active-low input safely |
 | 5 | [Mechanical bounce and debouncing](05-debouncing.md) | Turn noisy transitions into one press |
 | 6 | [Notifications and synchronized state](06-notifications.md) | Keep hardware and app displays consistent |
+| 7 | [Identity in a multi-board classroom](07-multiple-boards.md) | Distinguish devices that share a protocol |
 
 ## Before class
 
