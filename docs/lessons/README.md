@@ -10,6 +10,7 @@ same working circuit and application.
 | ---: | --- | --- |
 | 1 | [GPIO output and the LED](01-gpio-output.md) | Wire and control an LED safely |
 | 2 | [BLE services and characteristics](02-ble-service.md) | Read the project's BLE contract |
+| 3 | [The iPhone as a BLE central](03-ios-central.md) | Trace discovery, connection, and writes |
 
 ## Before class
 
