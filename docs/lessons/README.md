@@ -12,6 +12,7 @@ same working circuit and application.
 | 2 | [BLE services and characteristics](02-ble-service.md) | Read the project's BLE contract |
 | 3 | [The iPhone as a BLE central](03-ios-central.md) | Trace discovery, connection, and writes |
 | 4 | [Digital input and the push button](04-digital-input.md) | Read an active-low input safely |
+| 5 | [Mechanical bounce and debouncing](05-debouncing.md) | Turn noisy transitions into one press |
 
 ## Before class
 
